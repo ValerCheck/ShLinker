@@ -27,6 +27,30 @@ namespace ShLinkerApp
             ToPaste = "";
             Application.Run();
         }
+
+        private static void GlobalHookMouseDownExt(object sender, MouseEventExtArgs e)
+        {
+            Process[] plist = Process.GetProcesses();
+            foreach (Process p in plist)
+            {
+                if (p.ProcessName == "notepad")
+                {
+                    AutomationElement ae = AutomationElement.FromHandle(p.MainWindowHandle);
+                    AutomationElement npEdit = ae.FindFirst(TreeScope.Descendants,
+                        new PropertyCondition(AutomationElement.ClassNameProperty, "Edit"));
+
+                    TextPattern tp = npEdit.GetCurrentPattern(TextPattern.Pattern) as TextPattern;
+                    TextPatternRange[] trs;
+
+                    if (tp.SupportedTextSelection == SupportedTextSelection.None)
+                    {
+                        return;
+                    }
+                    trs = tp.GetSelection();
+                    Debug.WriteLine(trs[0].GetText(-1));
+                }
+            }
+        }
         
         private static void GlobalHookKeyDownExt(object sender, KeyEventArgs e)
         {
