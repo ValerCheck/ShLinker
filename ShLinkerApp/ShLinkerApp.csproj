@@ -52,8 +52,8 @@
     <Reference Include="UIAutomationTypes" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="FileLogger.cs" />
-    <Compile Include="LoggerBase.cs" />
+    <Compile Include="GeneralMethods.cs" />
+    <Compile Include="ShlinkerHook.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="Properties\Resources.resx">
