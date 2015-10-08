@@ -7,17 +7,25 @@ namespace ShLinkerApp
     public class GeneralMethods
     {
         private static bool _enabled;
+        private static ShortenerProvider _provider;
+        private static string textFromClipboard;
+
+        public GeneralMethods()
+        {
+            _provider = new BitlyShortenerProvider();
+        }
 
         public static Action<object,KeyEventArgs> KeyDown { get; private set; }
 
         static GeneralMethods()
         {
+            _provider = new BitlyShortenerProvider();
             KeyDown = (o, e) =>
             {
                 if (e.Alt && e.Control && e.KeyCode == Keys.C)
                 {
-                    var t = Clipboard.GetText();
-                    Debug.WriteLine(t);
+                    textFromClipboard = Clipboard.GetText();
+                    //Debug.WriteLine(t);
                 }
                 if (e.Control && e.KeyCode == Keys.D1)
                 {
@@ -25,7 +33,13 @@ namespace ShLinkerApp
                 }
                 if (_enabled)
                 {
-                    Clipboard.SetText("My app is enabled. You cannot use your clipboard. Ha ha ha.");
+                    if (!String.IsNullOrEmpty(textFromClipboard))
+                    {
+                        var resetText = _provider.GetShortUrl(textFromClipboard);
+
+                        Clipboard.SetText(resetText);
+                        textFromClipboard = "";
+                    }
                 }
             };
 

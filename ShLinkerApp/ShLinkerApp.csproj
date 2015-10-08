@@ -40,6 +40,7 @@
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Web" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -52,10 +53,12 @@
     <Reference Include="UIAutomationTypes" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BitlyShortenerProvider.cs" />
     <Compile Include="GeneralMethods.cs" />
     <Compile Include="ShlinkerHook.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ShortenerProvider.cs" />
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
